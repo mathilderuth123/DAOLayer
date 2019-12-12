@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class UserDao implements Dao<User> {
 		users.add(new User("John", "john@domain.com"));
 		users.add(new User("Susan", "susan@domain.com"));
 	}
+	
+	
 
 
 	@Override
@@ -42,6 +45,41 @@ public class UserDao implements Dao<User> {
 				e.printStackTrace();
 			}
 		}
+	}
+
+
+
+
+	@Override
+	public void load(String name) {
+		String url = "jdbc:mysql://localhost/hello";
+		String login = "root";
+		String passwd ="";
+		Connection cn =null;
+		Statement st =null;
+		ResultSet rs = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = DriverManager.getConnection(url, login, passwd);
+			st = cn.createStatement();
+			String sql = "SELECT * from hello_person WHERE name='"+ name+"'";
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				System.out.println(rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				cn.close();
+				st.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

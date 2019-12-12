@@ -9,6 +9,7 @@ public interface Dao<T> {
 	//List<T> getAll();
 
 	void save(T t);
+	void load(String name);
 
 	//void update(T t, String[] params);
 

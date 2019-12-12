@@ -14,6 +14,7 @@ public class UserApplication {
 	public static void main(String[] args) {
 		userDao = new UserDao();
 		userDao.save(new User("Julie", "julie@domain.com"));
+		userDao.load("Julie");
 
 	}
 
